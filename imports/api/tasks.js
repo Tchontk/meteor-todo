@@ -41,4 +41,20 @@ Meteor.methods({
             }
         });
     },
+    'tasks.private' (taskId, setToPrivate) {
+        check(taskId, String);
+        check(setToPrivate, Boolean);
+
+        const task = Tasks.findOne(taskId);
+
+        if (task.owner !== this.userId) {
+            throw new Meteor.Error("Private task");
+        }
+
+        Task.Update(taskId, {
+            $set: {
+                private: setToPrivate
+            }
+        });
+    },
 });

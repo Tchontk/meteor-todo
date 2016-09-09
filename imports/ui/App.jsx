@@ -12,6 +12,7 @@ class App extends Component {
         super(props);
         this.state = {hideCompleted: false, };
     }
+    
     handleSubmit(event) {
         event.preventDefault();
         // Find the text field via the React ref
@@ -27,6 +28,7 @@ class App extends Component {
         // Clear form
         ReactDOM.findDOMNode(this.refs.textInput).value = '';
     }
+    
     toggleHideCompleted(){
         this.setState({hideCompleted: !this.state.hideCompleted,});
     }
@@ -36,11 +38,16 @@ class App extends Component {
         if(this.state.hideCompleted){
             filteredTasks = filteredTasks.filter(task => !task.checked);
         }
-        return filteredTasks.map((task) => (
-            //return this.getTasks().map((task) => ( <
-            <Task key={task._id} task={task}/>
-        ));
+        return filteredTasks.map((task) => {
+            const currentUserId = this.props.currentUser && this.props.currentUser._id;
+            const showPrivateButton = task.owner === currentUserId;
+            
+            return(
+                <Task key={task._id} task={task} showPrivateButton = {showPrivateButton}/>
+            )
+        });
     }
+    
     render() {
         return (
             <div className = "container" >
@@ -61,26 +68,6 @@ class App extends Component {
             </div >
         );
     }
-    /*
-    getTasks() {
-        return [
-            {
-                _id: 1,
-                text: 'This is task 1'
-            },
-
-            {
-                _id: 2,
-                text: 'This is task 2'
-                },
-
-            {
-                _id: 3,
-                text: 'This is task 3'
-            },
-        ];
-    }
-    */
 }
 
 App.propTypes = {
