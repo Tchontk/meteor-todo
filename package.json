@@ -1,5 +1,6 @@
 {
   "name": "simple-todos",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "meteor run"
@@ -10,5 +11,9 @@
     "react": "^15.3.0",
     "react-addons-pure-render-mixin": "^15.3.0",
     "react-dom": "^15.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.4.0",
+    "eslint-config-google": "^0.6.0"
   }
 }
