@@ -30,10 +30,13 @@ class App extends Component {
       filteredTasks = filteredTasks.filter(task => !task.checked);
     }
     return filteredTasks.map((task) => {
-      const currentUserId = this.props.currentUser && this.props.currentUser._id;
+      const currentUserId = this.props.currentUser
+          && this.props.currentUser._id;
       const showPrivateButton = task.owner === currentUserId;
       return (
-        <Task key={task._id} task={task} showPrivateButton = {showPrivateButton}/>
+        <Task key={task._id}
+          task={task}
+          showPrivateButton = {showPrivateButton}/>
       );
     });
   }
@@ -43,13 +46,19 @@ class App extends Component {
         <header>
           <h1> Todo List ({this.props.incompleteCount}) </h1>
           <label className="hide-completed">
-            <input type="checkbox" readOnly checked={this.state.hideCompleted} onClick={this.toggleHideCompleted.bind(this) } />
+            <input type="checkbox"
+              readOnly
+              checked={this.state.hideCompleted}
+              onClick={this.toggleHideCompleted.bind(this) } />
             Hide Completed Tasks
           </label>
           <AccountsUIWrapper />
           {this.props.currentUser ?
-            <form className = "new-task" onSubmit = {this.handleSubmit.bind(this) }>
-              <input type = "text" ref = "textInput" placeholder = "Type to add new tasks" />
+            <form className = "new-task"
+              onSubmit = {this.handleSubmit.bind(this) }>
+              <input type = "text"
+                ref = "textInput"
+                placeholder = "Type to add new tasks" />
             </form> : ''
           }
         </header>
