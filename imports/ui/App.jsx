@@ -5,12 +5,13 @@ import {createContainer} from 'meteor/react-meteor-data';
 import {Tasks} from '../api/tasks.js';
 import Task from './Task.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
+
 // App component - represents the whole app
-//export default class App extends Component {
+// export default class App extends Component {
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {hideCompleted: false, };
+    this.state = {hideCompleted: false};
   }
   handleSubmit(event) {
     event.preventDefault();
@@ -22,16 +23,16 @@ class App extends Component {
     ReactDOM.findDOMNode(this.refs.textInput).value = '';
   }
   toggleHideCompleted() {
-    this.setState({hideCompleted: !this.state.hideCompleted, });
+    this.setState({hideCompleted: !this.state.hideCompleted});
   }
   renderTasks() {
     let filteredTasks = this.props.tasks;
     if (this.state.hideCompleted) {
       filteredTasks = filteredTasks.filter(task => !task.checked);
     }
-    return filteredTasks.map((task) => {
-      const currentUserId = this.props.currentUser
-          && this.props.currentUser._id;
+    return filteredTasks.map(task => {
+      const currentUserId = this.props.currentUser &&
+        this.props.currentUser._id;
       const showPrivateButton = task.owner === currentUserId;
       return (
         <Task key={task._id}
@@ -71,7 +72,7 @@ class App extends Component {
 App.propTypes = {
   tasks: PropTypes.array.isRequired,
   incompleteCount: PropTypes.number.isRequired,
-  currentUser: PropTypes.object,
+  currentUser: PropTypes.object
 };
 
 export default createContainer(() => {
@@ -82,7 +83,7 @@ export default createContainer(() => {
         createdAt: -1
       }
     }).fetch(),
-    incompleteCount: Tasks.find({ checked: { ne$: true } }).count(),
-    currentUser: Meteor.user(),
+    incompleteCount: Tasks.find({checked: {ne$: true}}).count(),
+    currentUser: Meteor.user()
   };
 }, App);

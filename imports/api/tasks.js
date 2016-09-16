@@ -7,6 +7,7 @@ import {
 import {
   check
 } from 'meteor/check';
+
 export const Tasks = new Mongo.Collection('tasks');
 
 if (Meteor.isServer) {
@@ -19,8 +20,8 @@ if (Meteor.isServer) {
       }, {
         owner: this.userId
       }]
-    })
-  })
+    });
+  });
 };
 Meteor.methods({
   'tasks.insert' (text) {
